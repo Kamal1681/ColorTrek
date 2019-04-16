@@ -14,7 +14,7 @@ enum Enemies: Int {
     case medium
     case large
 }
-class GameScene: SKScene, SKSceneDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var trackArray: [SKSpriteNode]? = [SKSpriteNode]()
     var player: SKSpriteNode? = SKSpriteNode(imageNamed: "player")
@@ -27,9 +27,9 @@ class GameScene: SKScene, SKSceneDelegate {
     var directionArray = [Bool]()
     var velocityArray = [Int]()
     
-    var playerCategory:UInt32  =    0x1 >> 0
-    var enemyCategory:UInt32   =    0x1 >> 1
-    var targetCategory:UInt32  =    0x1 >> 2
+    var playerCategory:UInt32  =    0x1 << 0
+    var enemyCategory:UInt32   =    0x1 << 1
+    var targetCategory:UInt32  =    0x1 << 2
     
     func setUpTracks() {
         for i in 0...7 {
@@ -61,13 +61,17 @@ class GameScene: SKScene, SKSceneDelegate {
         enemySprite.position.y = up ? -130 : self.size.height + 130
         
         enemySprite.physicsBody = SKPhysicsBody(edgeLoopFrom: enemySprite.path!)
+        enemySprite.physicsBody?.categoryBitMask = enemyCategory
         enemySprite.physicsBody?.velocity = up ? CGVector(dx: 0, dy: velocityArray[track]) :  CGVector(dx: 0, dy: -velocityArray[track])
         return enemySprite
     }
     func createTarget() {
-        self.addChild(target!)
+        target = self.childNode(withName: "target") as? SKSpriteNode
         target?.physicsBody = SKPhysicsBody(circleOfRadius: target!.size.width / 2)
         target?.physicsBody?.categoryBitMask = targetCategory
+        target?.physicsBody?.affectedByGravity = false
+        target?.physicsBody?.collisionBitMask = 0
+
     }
     func createPlayer() {
         player?.physicsBody = SKPhysicsBody(circleOfRadius: player!.size.width / 2)
@@ -103,6 +107,8 @@ class GameScene: SKScene, SKSceneDelegate {
         setUpTracks()
         createPlayer()
         createTarget()
+        
+        self.physicsWorld.contactDelegate = self
         trackArray?.first?.color = UIColor.green
         
         if let numberOfTracks = trackArray?.count {
@@ -168,7 +174,6 @@ class GameScene: SKScene, SKSceneDelegate {
         if !movetoTrack {
             player?.removeAllActions()
         }
-      //  player?.removeAllActions()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -176,7 +181,23 @@ class GameScene: SKScene, SKSceneDelegate {
             player?.removeAllActions()
         }
     }
-    
+    func didBegin(_ contact: SKPhysicsContact) {
+        var playerBody: SKPhysicsBody
+        var otherBody: SKPhysicsBody
+        
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            playerBody = contact.bodyA
+            otherBody = contact.bodyB
+        } else {
+            playerBody = contact.bodyB
+            otherBody = contact.bodyA
+        }
+        if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == enemyCategory {
+            print("enemy hit")
+        } else if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == targetCategory {
+            print("target hit")
+        }
+    }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
