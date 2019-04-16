@@ -22,6 +22,8 @@
 		1505033A225AA2DC0033FD83 /* levelCompleted.wav in Resources */ = {isa = PBXBuildFile; fileRef = 15050333225AA2DC0033FD83 /* levelCompleted.wav */; };
 		1505033B225AA2DC0033FD83 /* fail.wav in Resources */ = {isa = PBXBuildFile; fileRef = 15050334225AA2DC0033FD83 /* fail.wav */; };
 		1505033C225AA2DC0033FD83 /* levelUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 15050335225AA2DC0033FD83 /* levelUp.wav */; };
+		15E77B772265F0410095AC3E /* Pulse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 15E77B762265F0410095AC3E /* Pulse.sks */; };
+		15E77B792265F06C0095AC3E /* Fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 15E77B782265F06C0095AC3E /* Fireworks.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		15050333225AA2DC0033FD83 /* levelCompleted.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = levelCompleted.wav; sourceTree = "<group>"; };
 		15050334225AA2DC0033FD83 /* fail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fail.wav; sourceTree = "<group>"; };
 		15050335225AA2DC0033FD83 /* levelUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = levelUp.wav; sourceTree = "<group>"; };
+		15E77B762265F0410095AC3E /* Pulse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Pulse.sks; sourceTree = "<group>"; };
+		15E77B782265F06C0095AC3E /* Fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fireworks.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				15050318225AA1530033FD83 /* GameScene.sks */,
 				1505031A225AA1530033FD83 /* Actions.sks */,
 				1505031C225AA1530033FD83 /* GameScene.swift */,
+				15E77B762265F0410095AC3E /* Pulse.sks */,
+				15E77B782265F06C0095AC3E /* Fireworks.sks */,
 				1505031E225AA1530033FD83 /* GameViewController.swift */,
 				15050320225AA1530033FD83 /* Main.storyboard */,
 				15050323225AA1570033FD83 /* Assets.xcassets */,
@@ -164,6 +170,7 @@
 				15050319225AA1530033FD83 /* GameScene.sks in Resources */,
 				15050339225AA2DC0033FD83 /* background.wav in Resources */,
 				1505033A225AA2DC0033FD83 /* levelCompleted.wav in Resources */,
+				15E77B792265F06C0095AC3E /* Fireworks.sks in Resources */,
 				1505033C225AA2DC0033FD83 /* levelUp.wav in Resources */,
 				15050324225AA1570033FD83 /* Assets.xcassets in Resources */,
 				15050337225AA2DC0033FD83 /* move.wav in Resources */,
@@ -171,6 +178,7 @@
 				1505031B225AA1530033FD83 /* Actions.sks in Resources */,
 				1505033B225AA2DC0033FD83 /* fail.wav in Resources */,
 				15050338225AA2DC0033FD83 /* MenuHighscoreMusic.mp3 in Resources */,
+				15E77B772265F0410095AC3E /* Pulse.sks in Resources */,
 				15050336225AA2DC0033FD83 /* powerUp.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
