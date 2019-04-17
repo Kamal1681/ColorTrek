@@ -24,6 +24,8 @@
 		1505033C225AA2DC0033FD83 /* levelUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 15050335225AA2DC0033FD83 /* levelUp.wav */; };
 		15E77B772265F0410095AC3E /* Pulse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 15E77B762265F0410095AC3E /* Pulse.sks */; };
 		15E77B792265F06C0095AC3E /* Fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 15E77B782265F06C0095AC3E /* Fireworks.sks */; };
+		15E77B7D226792D60095AC3E /* GameFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E77B7C226792D60095AC3E /* GameFunctions.swift */; };
+		15E77B7F226792EA0095AC3E /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E77B7E226792EA0095AC3E /* GameElements.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		15050335225AA2DC0033FD83 /* levelUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = levelUp.wav; sourceTree = "<group>"; };
 		15E77B762265F0410095AC3E /* Pulse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Pulse.sks; sourceTree = "<group>"; };
 		15E77B782265F06C0095AC3E /* Fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fireworks.sks; sourceTree = "<group>"; };
+		15E77B7C226792D60095AC3E /* GameFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFunctions.swift; sourceTree = "<group>"; };
+		15E77B7E226792EA0095AC3E /* GameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,12 +83,13 @@
 			isa = PBXGroup;
 			children = (
 				15050316225AA1530033FD83 /* AppDelegate.swift */,
-				15050318225AA1530033FD83 /* GameScene.sks */,
-				1505031A225AA1530033FD83 /* Actions.sks */,
-				1505031C225AA1530033FD83 /* GameScene.swift */,
-				15E77B762265F0410095AC3E /* Pulse.sks */,
-				15E77B782265F06C0095AC3E /* Fireworks.sks */,
 				1505031E225AA1530033FD83 /* GameViewController.swift */,
+				15E77B7B226792790095AC3E /* Game Scenes */,
+				15E77B7A226792330095AC3E /* Particles */,
+				1505031C225AA1530033FD83 /* GameScene.swift */,
+				15E77B7C226792D60095AC3E /* GameFunctions.swift */,
+				15E77B7E226792EA0095AC3E /* GameElements.swift */,
+				1505031A225AA1530033FD83 /* Actions.sks */,
 				15050320225AA1530033FD83 /* Main.storyboard */,
 				15050323225AA1570033FD83 /* Assets.xcassets */,
 				1505032E225AA2DC0033FD83 /* Sounds */,
@@ -106,6 +111,23 @@
 				15050335225AA2DC0033FD83 /* levelUp.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		15E77B7A226792330095AC3E /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				15E77B782265F06C0095AC3E /* Fireworks.sks */,
+				15E77B762265F0410095AC3E /* Pulse.sks */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
+		15E77B7B226792790095AC3E /* Game Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				15050318225AA1530033FD83 /* GameScene.sks */,
+			);
+			path = "Game Scenes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,7 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E77B7F226792EA0095AC3E /* GameElements.swift in Sources */,
 				1505031D225AA1530033FD83 /* GameScene.swift in Sources */,
+				15E77B7D226792D60095AC3E /* GameFunctions.swift in Sources */,
 				1505031F225AA1530033FD83 /* GameViewController.swift in Sources */,
 				15050317225AA1530033FD83 /* AppDelegate.swift in Sources */,
 			);

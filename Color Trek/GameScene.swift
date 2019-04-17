@@ -9,15 +9,11 @@
 import SpriteKit
 import GameplayKit
 
-enum Enemies: Int {
-    case small
-    case medium
-    case large
-}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var trackArray: [SKSpriteNode]? = [SKSpriteNode]()
-    var player: SKSpriteNode? = SKSpriteNode(imageNamed: "player")
+    var player: SKSpriteNode? 
     var target: SKSpriteNode? = SKSpriteNode(imageNamed: "target")
     var currentTrack = 0
     var movetoTrack = false
@@ -27,81 +23,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var directionArray = [Bool]()
     var velocityArray = [Int]()
     
-    var playerCategory:UInt32  =    0x1 << 0
-    var enemyCategory:UInt32   =    0x1 << 1
-    var targetCategory:UInt32  =    0x1 << 2
+    let playerCategory:UInt32  =    0x1 << 0
+    let enemyCategory:UInt32   =    0x1 << 1
+    let targetCategory:UInt32  =    0x1 << 2
     
-    func setUpTracks() {
-        for i in 0...7 {
-            if let track = self.childNode(withName: "\(i)") {
-                trackArray?.append(track as! SKSpriteNode)
-            }
-        }
-        
-    }
-    func createEnemy(type: Enemies, forTrack track: Int) -> SKShapeNode? {
-        let enemySprite = SKShapeNode()
-        enemySprite.name = "Enemy"
-        switch type {
-        case .small:
-            enemySprite.path = CGPath(roundedRect: CGRect(x: -10, y: 0, width: 20, height: 70), cornerWidth: 8, cornerHeight: 8, transform: nil)
-            enemySprite.fillColor = UIColor(red: 0.4431, green: 0.5529, blue: 0.7451, alpha: 1)
-        case .medium:
-            enemySprite.path = CGPath(roundedRect: CGRect(x: -10, y: 0, width: 20, height: 100), cornerWidth: 8, cornerHeight: 8, transform: nil)
-            enemySprite.fillColor = UIColor(red: 0.7804, green: 0.4039, blue: 0.4039, alpha: 1)
-        case .large:
-            enemySprite.path = CGPath(roundedRect: CGRect(x: -10, y: 0, width: 20, height: 130), cornerWidth: 8, cornerHeight: 8, transform: nil)
-            enemySprite.fillColor = UIColor(red: 0.7804, green: 0.6392, blue: 0.4039, alpha: 1)
-        }
-        
-        guard let enemyPosition = trackArray?[track].position else {return nil}
-        
-        let up = directionArray[track]
-        enemySprite.position.x = enemyPosition.x
-        enemySprite.position.y = up ? -130 : self.size.height + 130
-        
-        enemySprite.physicsBody = SKPhysicsBody(edgeLoopFrom: enemySprite.path!)
-        enemySprite.physicsBody?.categoryBitMask = enemyCategory
-        enemySprite.physicsBody?.velocity = up ? CGVector(dx: 0, dy: velocityArray[track]) :  CGVector(dx: 0, dy: -velocityArray[track])
-        return enemySprite
-    }
-    func createTarget() {
-        target = self.childNode(withName: "target") as? SKSpriteNode
-        target?.physicsBody = SKPhysicsBody(circleOfRadius: target!.size.width / 2)
-        target?.physicsBody?.categoryBitMask = targetCategory
-        target?.physicsBody?.affectedByGravity = false
-        target?.physicsBody?.collisionBitMask = 0
 
-    }
-    func createPlayer() {
-        player?.physicsBody = SKPhysicsBody(circleOfRadius: player!.size.width / 2)
-        player?.physicsBody?.linearDamping = 0
-        player?.physicsBody?.affectedByGravity = false
-        player?.physicsBody?.categoryBitMask = playerCategory
-        player?.physicsBody?.collisionBitMask = 0
-        player?.physicsBody?.contactTestBitMask = enemyCategory | targetCategory
-        
-        guard let playerposition = trackArray?.first?.position.x else { return }
-        player?.position = CGPoint(x: playerposition, y: self.size.height / 2)
-        self.addChild(player!)
-        
-        let pulse = SKEmitterNode(fileNamed: "Pulse")!
-        player?.addChild(pulse)
-        pulse.position = CGPoint(x: 0, y: 0)
-    }
-    func spawnEnemies() {
-        for i in 1...6 {
-            let randomEnemyType = Enemies(rawValue: GKRandomSource.sharedRandom().nextInt(upperBound: 3))!
-            if let newEnemy = createEnemy(type: randomEnemyType, forTrack: i) {
-                self.addChild(newEnemy)
-            }
-        }
-        self.enumerateChildNodes(withName: "Enemy", using: {(node: SKNode, nil) in
-            if node.position.y < -150 || node.position.y > self.size.height + 150 {
-                node.removeFromParent()
-            }
-        })
-    }
+   
     override func didMove(to view: SKView) {
 
         setUpTracks()
@@ -124,34 +51,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        
     }
     
-    func moveToNextTrack() {
-        player?.removeAllActions()
-        movetoTrack = true
-        
-        guard let nextTrack = trackArray?[currentTrack + 1].position else {return}
-        if let player = self.player {
-           let moveAction = SKAction.move(to: CGPoint(x: nextTrack.x, y: player.position.y), duration: 0.2)
-            player.run(moveAction, completion: {
-                self.movetoTrack = false
-                })
-            currentTrack += 1
-            self.run(moveSound)
-        }
-        
-    }
-    
-    func moveVertically(up: Bool) {
-        if up {
-            let moveAction = SKAction.moveBy(x: 0, y: 3, duration: 0.01)
-            let repeatAction = SKAction.repeatForever(moveAction)
-            player?.run(repeatAction)
-        } else {
-            let moveAction = SKAction.moveBy(x: 0, y: -3, duration: 0.01)
-            let repeatAction = SKAction.repeatForever(moveAction)
-            player?.run(repeatAction)
-        }
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.previousLocation(in: self)
@@ -165,9 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             else if node?.name == "right" || node?.name == "rightImg" {
                 moveToNextTrack()
             }
-            
         }
-       
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -193,12 +90,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             otherBody = contact.bodyA
         }
         if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == enemyCategory {
-            print("enemy hit")
+            movePlayerToStart()
         } else if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == targetCategory {
-            print("target hit")
+            nextLevel(playerPhysicsBody: playerBody)
         }
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if let player = self.player {
+            if player.position.y > self.size.height || player.position.y < 0 {
+                movePlayerToStart()
+            }
+        }
     }
 }
