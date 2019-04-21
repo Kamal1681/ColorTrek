@@ -14,6 +14,7 @@ extension GameScene {
     func spawnEnemies() {
         for i in 1...6 {
             let randomEnemyType = Enemies(rawValue: GKRandomSource.sharedRandom().nextInt(upperBound: 3))!
+            
             if let newEnemy = createEnemy(type: randomEnemyType, forTrack: i) {
                 self.addChild(newEnemy)
             }
@@ -70,6 +71,9 @@ extension GameScene {
     }
     
     func nextLevel(playerPhysicsBody: SKPhysicsBody) {
+        self.run(SKAction.playSoundFileNamed("levelUp.wav", waitForCompletion: true))
+        currentScore += 1
+        
         let emitter = SKEmitterNode(fileNamed: "Fireworks.sks")
         playerPhysicsBody.node?.addChild(emitter!)
         
@@ -77,5 +81,12 @@ extension GameScene {
             emitter?.removeFromParent()
             self.movePlayerToStart()
         }
+    }
+    
+    func launchGameTimer() {
+        let timeAction = SKAction.repeatForever(SKAction.sequence([SKAction.run {
+            self.timeRemainig -= 1
+            }, SKAction.wait(forDuration: 1)]))
+        timeLabel?.run(timeAction)
     }
 }
