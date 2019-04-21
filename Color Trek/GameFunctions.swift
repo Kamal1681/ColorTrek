@@ -12,12 +12,25 @@ import GameplayKit
 extension GameScene {
     
     func spawnEnemies() {
-        for i in 1...6 {
-            let randomEnemyType = Enemies(rawValue: GKRandomSource.sharedRandom().nextInt(upperBound: 3))!
-            
-            if let newEnemy = createEnemy(type: randomEnemyType, forTrack: i) {
-                self.addChild(newEnemy)
+        var randomtrackNumber = 0
+        let createPowerUp = GKRandomSource.sharedRandom().nextBool()
+        
+        if createPowerUp {
+            randomtrackNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 5) + 1
+            if let powerUpObject = self.createPowerUp(forTrack: randomtrackNumber) {
+                self.addChild(powerUpObject)
             }
+        }
+        
+        for i in 1...6 {
+            if randomtrackNumber != i {
+                let randomEnemyType = Enemies(rawValue: GKRandomSource.sharedRandom().nextInt(upperBound: 3))!
+                
+                if let newEnemy = createEnemy(type: randomEnemyType, forTrack: i) {
+                    self.addChild(newEnemy)
+                }
+            }
+            
         }
         self.enumerateChildNodes(withName: "Enemy", using: {(node: SKNode, nil) in
             if node.position.y < -150 || node.position.y > self.size.height + 150 {
@@ -73,7 +86,7 @@ extension GameScene {
     func nextLevel(playerPhysicsBody: SKPhysicsBody) {
         self.run(SKAction.playSoundFileNamed("levelUp.wav", waitForCompletion: true))
         currentScore += 1
-        
+    
         let emitter = SKEmitterNode(fileNamed: "Fireworks.sks")
         playerPhysicsBody.node?.addChild(emitter!)
         

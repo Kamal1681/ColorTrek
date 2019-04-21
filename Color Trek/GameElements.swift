@@ -74,7 +74,7 @@ extension GameScene {
         player?.physicsBody?.affectedByGravity = false
         player?.physicsBody?.categoryBitMask = playerCategory
         player?.physicsBody?.collisionBitMask = 0
-        player?.physicsBody?.contactTestBitMask = enemyCategory | targetCategory
+        player?.physicsBody?.contactTestBitMask = enemyCategory | targetCategory | powerUpCategory
         
         guard let playerposition = trackArray?.first?.position.x else { return }
         player?.position = CGPoint(x: playerposition, y: self.size.height / 2)
@@ -84,4 +84,24 @@ extension GameScene {
         player?.addChild(pulse)
         pulse.position = CGPoint(x: 0, y: 0)
     }
+    func createPowerUp(forTrack track: Int) -> SKSpriteNode? {
+        let powerUpSprite = SKSpriteNode(imageNamed: "powerUp")
+        powerUpSprite.name = "Enemy"
+        
+        powerUpSprite.physicsBody = SKPhysicsBody(circleOfRadius: powerUpSprite.size.width / 2)
+        powerUpSprite.physicsBody?.linearDamping = 0
+        powerUpSprite.physicsBody?.categoryBitMask = powerUpCategory
+        powerUpSprite.physicsBody?.collisionBitMask = 0
+        powerUpSprite.physicsBody?.affectedByGravity = false
+        
+        let up = directionArray[track]
+        guard let powerUpXPosition = trackArray?[track].position.x else {return nil}
+        
+        powerUpSprite.position.x = powerUpXPosition
+        powerUpSprite.position.y = up ? -130 : self.size.height + 130
+        
+        powerUpSprite.physicsBody?.velocity = up ? CGVector(dx: 0, dy: velocityArray[track]) : CGVector(dx: 0, dy: -velocityArray[track])
+        return powerUpSprite
+    }
+    
 }
