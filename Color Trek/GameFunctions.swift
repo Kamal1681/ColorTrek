@@ -102,4 +102,15 @@ extension GameScene {
             }, SKAction.wait(forDuration: 1)]))
         timeLabel?.run(timeAction)
     }
+    
+    func gameOver() {
+        GameHandler.sharedInstance.saveGameStats()
+        
+        self.run(SKAction.playSoundFileNamed("levelCompleted.wav", waitForCompletion: true))
+        let transition = SKTransition.fade(withDuration: 1)
+        if let gameOverScene = SKScene(fileNamed: "GameOverScene") {
+            gameOverScene.scaleMode = .aspectFit
+            self.view?.presentScene(gameOverScene, transition: transition)
+        }
+    }
 }

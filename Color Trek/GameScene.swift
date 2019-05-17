@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var currentScore: Int = 0 {
         didSet {
             self.scoreLabel?.text = "Score: \(self.currentScore)"
+            GameHandler.sharedInstance.score = currentScore
         }
     }
     var timeRemainig: TimeInterval = 60 {
@@ -84,7 +85,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 moveVertically(up: false)
             }
             else if node?.name == "right" || node?.name == "rightImg" {
-                moveToNextTrack()
+                if currentTrack < 7 {
+                    moveToNextTrack()
+                }
             }
         }
     }
@@ -128,11 +131,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if player.position.y > self.size.height || player.position.y < 0 {
                 movePlayerToStart()
             }
-            if timeRemainig < 0 {
-                currentScore = 0
-                timeRemainig = 60
-                timeLabel?.fontColor = UIColor.white
-                movePlayerToStart()
+            if timeRemainig == 0 {
+                gameOver()
             }
         }
         if timeRemainig <= 5 {

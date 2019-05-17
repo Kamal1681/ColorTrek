@@ -31,6 +31,7 @@
 		15F3C04C228AF27B00088A0F /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 15F3C048228AF27B00088A0F /* GameOverScene.sks */; };
 		15F3C04D228AF27B00088A0F /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3C049228AF27B00088A0F /* GameOverScene.swift */; };
 		15F3C04F228AF91900088A0F /* ScrollingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3C04E228AF91900088A0F /* ScrollingBackground.swift */; };
+		15F3C051228EDA0500088A0F /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3C050228EDA0500088A0F /* GameHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		15F3C048228AF27B00088A0F /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
 		15F3C049228AF27B00088A0F /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		15F3C04E228AF91900088A0F /* ScrollingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackground.swift; sourceTree = "<group>"; };
+		15F3C050228EDA0500088A0F /* GameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				15E77B7E226792EA0095AC3E /* GameElements.swift */,
 				15E77B7C226792D60095AC3E /* GameFunctions.swift */,
 				15F3C04E228AF91900088A0F /* ScrollingBackground.swift */,
+				15F3C050228EDA0500088A0F /* GameHandler.swift */,
 				1505031A225AA1530033FD83 /* Actions.sks */,
 				15050320225AA1530033FD83 /* Main.storyboard */,
 				15050323225AA1570033FD83 /* Assets.xcassets */,
@@ -234,6 +237,7 @@
 				15F3C04B228AF27B00088A0F /* StartScene.swift in Sources */,
 				15F3C04D228AF27B00088A0F /* GameOverScene.swift in Sources */,
 				1505031D225AA1530033FD83 /* GameScene.swift in Sources */,
+				15F3C051228EDA0500088A0F /* GameHandler.swift in Sources */,
 				15E77B7D226792D60095AC3E /* GameFunctions.swift in Sources */,
 				1505031F225AA1530033FD83 /* GameViewController.swift in Sources */,
 				15050317225AA1530033FD83 /* AppDelegate.swift in Sources */,
